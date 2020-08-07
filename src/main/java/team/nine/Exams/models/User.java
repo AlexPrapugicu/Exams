@@ -16,23 +16,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "uid")
-    private int uid;
+    private Long uid;
 
-    @Column(name= "user_name")
+    @Column(name = "user_name")
     private String userName;
 
-    @Column(name= "password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name= "email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name= "role")
+    @Column(name = "role")
     private String role;
 
-    public void setId(Long id) {
-    }
-
-    // private String token
-    // or a list of tokens not yet implemented
+    @Column(name = "token")
+    private String token;
 }

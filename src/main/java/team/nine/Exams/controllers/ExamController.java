@@ -18,29 +18,29 @@ public class ExamController {
 
     //findAll method
     @GetMapping("/exams")
-    private List<Exam> getAll(){
+    public List<Exam> getAll(){
         return repository.findAll();
     }
 
     //new exam method
     @PostMapping("/exams")
-    private Exam newExam(@RequestBody Exam newExam){
+    public Exam newExam(@RequestBody Exam newExam){
         return repository.save(newExam);
     }
 
     // test filter and exception using the id of an exam
-    @GetMapping("/exam/{id}")
+    @GetMapping("/exams/{id}")
     Exam one(@PathVariable Long id) {
 
         return repository.findById(id)
                 .orElseThrow(() -> new ExamNotFound(id));
     }
 
-    @GetMapping("/exam/year/{yearOfStudy}")
+    @GetMapping("/exams/year/{yearOfStudy}")
     List<Exam> findStudyYear(@PathVariable int yearOfStudy){
         return repository.findByYearOfStudy(yearOfStudy);
     }
-    @GetMapping("exam/faculty/{faculty}")
+    @GetMapping("exams/faculty/{faculty}")
     List<Exam> findFaculty(@PathVariable String faculty){
         return repository.findByFaculty(faculty);
     }
@@ -50,8 +50,8 @@ public class ExamController {
 
 
     //updating an exam using the id
-    @PutMapping("/exam/{id}")
-    private Exam replaceExam(@RequestBody Exam newExam, @PathVariable Long id) {
+    @PutMapping("/exams/{id}")
+    public Exam replaceExam(@RequestBody Exam newExam, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(exam -> {
@@ -61,7 +61,7 @@ public class ExamController {
                     exam.setDomain(newExam.getDomain());
                     exam.setCourse(newExam.getCourse());
                     exam.setTeacher(newExam.getTeacher());
-                    exam.setNumberOfSeats(newExam.getNumberOfSeats());
+
                     return repository.save(exam);
                 })
                 .orElseGet(() -> {
@@ -70,8 +70,8 @@ public class ExamController {
                 });
     }
     //removing an exam by id
-    @DeleteMapping("/exam/{id}")
-    void deleteExam(@PathVariable Long id) {
+    @DeleteMapping("/exams/{id}")
+    public void deleteExam(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }

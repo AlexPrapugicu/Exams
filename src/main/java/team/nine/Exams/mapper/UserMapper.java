@@ -1,5 +1,5 @@
-package team.nine.Exams.mapper;
-
-public class UserMapper {
-
-}
+//package team.nine.Exams.mapper;
+//
+//public class UserMapper {
+//
+//}
