@@ -1,9 +1,7 @@
 import {userTypes} from "./userTypes";
 import axios from "axios";
 import {authHeader} from "../shared/authHeader";
-import {examsTypes} from "./examTypes";
 import {sorter} from "../shared/util";
-
 
 // function getFirstName(name) {
 //     return name.split(' ').slice(0, -1).join(' ');
