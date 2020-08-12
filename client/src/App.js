@@ -7,13 +7,12 @@ import {
     Switch
 } from "react-router-dom";
 
-import Register from "./components/Register";
 import {PageWrapper} from "./App.styled";
 import StartPage from "./containers/StartPage";
 import DefaultRoutes from "./containers/DefaultRoutes";
 import PageNotFound404 from "./containers/PageNotFound404";
-import LoginContainer from "./containers/LoginContainer";
-import RegisterContainer from "./containers/RegisterContainer";
+import LoginContainer from "./containers/auth/LoginContainer";
+import RegisterContainer from "./containers/auth/RegisterContainer";
 
 
 function App() {

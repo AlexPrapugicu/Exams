@@ -11,7 +11,6 @@ import {
 } from "./styledCards";
 
 import {faEnvelope, faPaperPlane} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebook} from "@fortawesome/free-brands-svg-icons"
 
 

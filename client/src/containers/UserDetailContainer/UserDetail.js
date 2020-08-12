@@ -1,10 +1,12 @@
 import React, {useEffect} from "react";
-import {useParams,useHistory} from "react-router-dom"
+import {useParams, useHistory} from "react-router-dom"
 import UserDetailCard from "../../components/users/UserDetailCard";
 import {useDispatch, useSelector} from "react-redux";
 import {startEditing, fetchUser, stopEditing, deleteUser} from "../../actions/userActions";
 import Spinner from "../../shared/Spinner";
 import UserDetailEdit from "../../components/users/UserDetailEdit";
+import {UserDetailWrapper} from "./UserDetailWrapper";
+import {getUserRole} from "../../shared/util";
 
 
 function UserDetail() {
@@ -36,21 +38,22 @@ function UserDetail() {
     }
 
     return (
-        <div>
+        <UserDetailWrapper>
             {
                 !editMode ?
                     user ? <UserDetailCard username={username}
                                            user={user}
-                                           editMode={editMode}
-                                           startEdit={startEditingHandler}/> : <Spinner/>
+                                           startEdit={startEditingHandler}
+                                           userRole={getUserRole}/>
+                        : <Spinner/>
                     : user ? <UserDetailEdit username={username}
                                              user={user}
-                                             editMode={editMode}
                                              stopEdit={stopEditingHandler}
-                                             deleteUser={deleteUserHandler}/> : <Spinner/>
+                                             deleteUser={deleteUserHandler}
+                                             userRole={getUserRole}/>
+                    : <Spinner/>
             }
-
-        </div>
+        </UserDetailWrapper>
     );
 }
 

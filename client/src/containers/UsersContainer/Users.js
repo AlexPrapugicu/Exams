@@ -4,18 +4,17 @@ import Spinner from "../../shared/Spinner";
 import {fetchUsers} from "../../actions/userActions";
 import UserCard from "../../components/users/UserCard";
 import {
-    FancyFilterWrapper,
-    FancyLabel, FancySelect,
     FancySelectWrapper,
     SearchBarWrapper,
     UserContainer,
     UserListStyled
 } from "./UserList.styled";
 import UsersSearchForm from "./UsersSearchForm";
+import {UserSorter} from "./UserSorter";
 
 function Exams() {
 
-    const users = useSelector(state => state.users.users);
+    const users = useSelector(state => state.users.filteredUsers);
     const dispatch = useDispatch();
 
     // Use effect will only run once with component render
@@ -29,16 +28,7 @@ function Exams() {
                 <SearchBarWrapper>
                     <UsersSearchForm/>
                     <FancySelectWrapper>
-                        <FancyFilterWrapper>
-                            <FancyLabel htmlFor="filters">Filter</FancyLabel>
-                        <FancySelect name="filters" id="filters" defaultValue="">
-                            <option disabled defaultValue=""></option>
-                            <option value="byUserName">Filter by Username Ascending</option>
-                            <option value="byUserName">Filter by Username Descending</option>
-                            <option value="byEmail">Filter by Email Ascending</option>
-                            <option value="byEmail">Filter by Email Descending</option>
-                        </FancySelect>
-                        </FancyFilterWrapper>
+                        <UserSorter/>
                     </FancySelectWrapper>
                 </SearchBarWrapper>
                 <UserListStyled>

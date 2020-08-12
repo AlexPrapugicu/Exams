@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteExam, fetchExam, startEditing, stopEditing} from "../../actions/examActions";
 import Spinner from "../../shared/Spinner";
 import ExamDetailEdit from "../../components/exams/ExamDetailEdit";
+import {ExamDetailWrapper} from "./ExamDetail.styled";
+import {getUserRole} from "../../shared/util";
 
 function ExamDetail() {
     const {id} = useParams();
@@ -31,16 +33,22 @@ function ExamDetail() {
         dispatch(deleteExam(exam.id));
     }
 
+
+
     return (
-        <div>
+        <ExamDetailWrapper>
             {
                 !editMode ?
-                    exam ? <ExamDetailCard exam={exam} editMode={editMode} startEdit={startEditingHandler}/> : <Spinner/>
-                    : exam ? <ExamDetailEdit exam={exam} editMode={editMode} stopEdit={stopEditingHandler} deleteExam={deleteExamHandler}/> : history.goBack()
+                    exam ? <ExamDetailCard exam={exam}
+                                           startEdit={startEditingHandler}
+                                           userRole={getUserRole}/>
+                                           : <Spinner/>
+                    : exam ? <ExamDetailEdit exam={exam}
+                                             stopEdit={stopEditingHandler}
+                                             deleteExam={deleteExamHandler}
+                                             userRole={getUserRole}/> : history.goBack()
             }
-            {/*{exam ? <ExamDetailCard exam={exam} editMode={editMode} startEdit={startEditingHandler}/> : <Spinner/>}*/}
-
-        </div>
+        </ExamDetailWrapper>
     );
 }
 
