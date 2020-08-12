@@ -8,8 +8,9 @@ import {
     InfoDetailWrapper,
     UserInfoSection, UserText
 } from "./styledCards";
+import {getUserRole} from "../../shared/util";
 
-function UserDetailCard({username, user,editMode,startEdit}) {
+function UserDetailCard({username, user, startEdit}) {
     return (
         <DetailCardWrapper>
             <DetailImageSection>
@@ -17,7 +18,7 @@ function UserDetailCard({username, user,editMode,startEdit}) {
                               src="https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=681&q=80"
                               alt=""/>
                 <UserInfoSection>
-                    <UserText>{username}</UserText>
+                    <UserText>{username.toUpperCase()}</UserText>
                     <UserText>City Country</UserText>
                 </UserInfoSection>
             </DetailImageSection>
@@ -37,8 +38,11 @@ function UserDetailCard({username, user,editMode,startEdit}) {
                 </InfoDetailSection>
             </InfoDetailWrapper>
             <ButtonSection>
-                <FancyButton onClick={() => startEdit()}>START EDIT</FancyButton>
-                <FancyButton onClick={() => console.log(editMode)}>Check Edit</FancyButton>
+                {
+                    getUserRole() === "admin" || getUserRole() === "professor" ?
+                        <FancyButton onClick={() => startEdit()}>START EDIT</FancyButton>
+                        : <></>
+                }
             </ButtonSection>
         </DetailCardWrapper>
     );
