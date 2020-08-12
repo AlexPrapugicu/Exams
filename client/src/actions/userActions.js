@@ -1,15 +1,17 @@
 import {userTypes} from "./userTypes";
 import axios from "axios";
 import {authHeader} from "../shared/authHeader";
+import {examsTypes} from "./examTypes";
+import {sorter} from "../shared/util";
 
 
-function getFirstName(name) {
-    return name.split(' ').slice(0, -1).join(' ');
-}
-
-function getLastName(name) {
-    return name.split(' ').slice(-1).join(' ');
-}
+// function getFirstName(name) {
+//     return name.split(' ').slice(0, -1).join(' ');
+// }
+//
+// function getLastName(name) {
+//     return name.split(' ').slice(-1).join(' ');
+// }
 
 function getUsersUrl() {
     return "http://localhost:8080/api/users";
@@ -187,25 +189,42 @@ export const deleteUser = (user) => async dispatch => {
 };
 
 
-// export const filterUser = (users, filterType, filterItem) => dispatch => {
-//
-//     let filteredUsers = [];
-//     switch (filterType) {
-//         case "username" :
-//             filterItem === "" ? filteredUsers = users : filteredUsers = users.filter(user => user.userName.toLowerCase().includes(filterItem).toLowerCase());
-//         case "role" :
-//             filterItem === "" ? filteredUsers = users : filteredUsers = users.filter(user => user.role.toLowerCase().includes(filterItem).toLowerCase());
-//         case "email" :
-//             filterItem === "" ? filteredUsers = users : filteredUsers = users.filter(user => user.email.toLowerCase().includes(filterItem).toLowerCase());
-//         case "uid" :
-//             filterItem === "" ? filteredUsers = users : filteredUsers = users.filter(user => user.uid.toLowerCase().includes(filterItem).toLowerCase());
-//         default:
-//             filteredUsers = users;
-//     }
-//
-//     return dispatch({
-//         type: userTypes.FILTER_USERS,
-//         payload: filteredUsers
-//     })
-//
-// };
+export const filter = (array, event) => dispatch => {
+
+    const {name, value} = event.target;
+    console.log("Name ~ Value: ", name, value);
+    return dispatch({
+        type: userTypes.FILTER_USERS,
+        payload: value === "" ? array : array.filter(user => user[`${name}`].toLowerCase().includes(value.toLowerCase()))
+    });
+};
+
+export const logout = () => dispatch => {
+
+    try {
+        const response = axios.delete("http://localhost:8080/api/users/logout",{
+            headers:authHeader()
+        });
+
+        return dispatch({
+            type: userTypes.LOGOUT,
+            payload: response
+        })
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+
+export const sort = (array, event) => dispatch => {
+    const {name, value} = event.target;
+    console.log("Name", name);
+    console.log("Value: ",value);
+    const sortingBy = value.split(' ').slice(0,-1).join(' ');
+    const order = value.split(' ').slice(-1).join(' ');
+    return dispatch({
+        type: userTypes.SORT_USERS,
+        payload: value === "" ? array : array.sort(sorter(sortingBy,order))
+    });
+};
