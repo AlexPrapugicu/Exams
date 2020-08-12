@@ -1,8 +1,18 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {editExam} from "../../actions/examActions";
+import {
+    ExamDetail,
+    ExamDetailWrapper, FancyButton, FancyEditForm,
+    FancyInput,
+    ItemWrapper,
+    ListItemStyled,
+    ListStyled,
+    Separator
+} from "./exam.styled";
+import {ExamText} from "../../containers/ExamsContainer/exams.styled";
 
-function ExamDetailEdit({exam,stopEdit,deleteExam}) {
+function ExamDetailEdit({exam, stopEdit, deleteExam}) {
 
     let editedExam = useSelector(state => state.exams.editedExam);
     const dispatch = useDispatch();
@@ -12,7 +22,7 @@ function ExamDetailEdit({exam,stopEdit,deleteExam}) {
         const {name, value} = event.target;
         editedExam = {
             ...editedExam,
-            [name] : value
+            [name]: value
         };
     }
 
@@ -23,46 +33,81 @@ function ExamDetailEdit({exam,stopEdit,deleteExam}) {
     }
 
 
-return (
-    <div style={{margin: "10%"}}>
-        <button onClick={stopEdit}>Stop edit</button>
-        <button onClick={deleteExam}>DeleteExam</button>
-        <button onClick={() => console.log(editedExam)}>Show edited</button>
-    <form onSubmit={submitHandler} style={{ display: "flex", flexDirection: "column", width:"50%"}}>
-        <label>course</label>
-        <input type="text"
-               defaultValue={exam.course}
-               name="course"
-               onChange={inputChangeHandler}/>
-        <label>yearOfStudy</label>
-        <input type="text"
-               name="yearOfStudy"
-               defaultValue={exam.yearOfStudy}
-               onChange={inputChangeHandler}/>
-        <label>session</label>
-        <input type="text"
-               name="session"
-               defaultValue={exam.session}
-               onChange={inputChangeHandler}/>
-        <label>teacher</label>
-        <input type="text"
-               name="teacher"
-               defaultValue={exam.teacher}
-               onChange={inputChangeHandler}/>
-        <label>domain</label>
-        <input type="text"
-               name="domain"
-               defaultValue={exam.domain}
-               onChange={inputChangeHandler}/>
-        <label>faculty</label>
-        <input type="text"
-               name="faculty"
-               defaultValue={exam.faculty}
-               onChange={inputChangeHandler}/>
-               <button onClick={() => console.log("editing done")}>Submit</button>
-    </form>
-    </div>
-);
+    return (
+        <ExamDetailWrapper>
+            <ExamDetail>
+                    <FancyButton onClick={stopEdit}>Stop edit</FancyButton>
+                    <FancyButton onClick={deleteExam}>DeleteExam</FancyButton>
+                <FancyEditForm onSubmit={submitHandler}>
+                    <ListStyled>
+                        <Separator>
+                            <ListItemStyled>
+                                <ExamText>course</ExamText>
+                                <ItemWrapper>
+                                    <FancyInput type="text"
+                                                defaultValue={exam.course}
+                                                name="course"
+                                                onChange={inputChangeHandler}/>
+                                </ItemWrapper>
+                            </ListItemStyled>
+                            <ListItemStyled>
+                                <ExamText>yearOfStudy</ExamText>
+                                <ItemWrapper>
+                                    <FancyInput type="text"
+                                                name="yearOfStudy"
+                                                defaultValue={exam.yearOfStudy}
+                                                onChange={inputChangeHandler}/>
+                                </ItemWrapper>
+                            </ListItemStyled>
+                        </Separator>
+                        <Separator>
+                            <ListItemStyled>
+                                <ExamText>session</ExamText>
+                                <ItemWrapper>
+                                    <FancyInput type="text"
+                                                name="session"
+                                                defaultValue={exam.session}
+                                                onChange={inputChangeHandler}/>
+                                </ItemWrapper>
+                            </ListItemStyled>
+                            <ListItemStyled>
+                                <ExamText>teacher</ExamText>
+                                <ItemWrapper>
+                                    <FancyInput type="text"
+                                                name="teacher"
+                                                defaultValue={exam.teacher}
+                                                onChange={inputChangeHandler}/>
+                                </ItemWrapper>
+                            </ListItemStyled>
+                        </Separator>
+                        <Separator>
+                            <ListItemStyled>
+                                <ExamText>domain</ExamText>
+                                <ItemWrapper>
+                                    <FancyInput type="text"
+                                                name="domain"
+                                                defaultValue={exam.domain}
+                                                onChange={inputChangeHandler}/>
+                                </ItemWrapper>
+                            </ListItemStyled>
+                            <ListItemStyled>
+                                <ExamText>faculty</ExamText>
+                                <ItemWrapper>
+                                    <FancyInput type="text"
+                                                name="faculty"
+                                                defaultValue={exam.faculty}
+                                                onChange={inputChangeHandler}/>
+                                </ItemWrapper>
+                            </ListItemStyled>
+                        </Separator>
+                        <ListItemStyled>
+                            <FancyButton submit onClick={() => console.log("editing done")}>Submit</FancyButton>
+                        </ListItemStyled>
+                    </ListStyled>
+                </FancyEditForm>
+            </ExamDetail>
+        </ExamDetailWrapper>
+    );
 }
 
 export default ExamDetailEdit;

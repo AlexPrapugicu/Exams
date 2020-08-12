@@ -31,4 +31,8 @@ public class Exam {
     @Column(name= "teacher")
     private String teacher;
 
+//    @ManyToMany(targetEntity = UserExams.class, mappedBy = "exam", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+//    @ElementCollection(targetClass = UserExams.class)
+//    private List<UserExams> userExams;
+
 }

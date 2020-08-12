@@ -9,7 +9,8 @@ export default function (state = initialState.usersObj, action) {
             console.log("FETCH_USERS TEST: ", action.payload);
             return {
                 ...state,
-                users: action.payload
+                users: action.payload,
+                filteredUsers: action.payload
             };
         case userTypes.FETCH_USERS_FAILURE:
             console.log("FETCH_USERS FAILURE TEST: ", action.payload);
@@ -97,6 +98,27 @@ export default function (state = initialState.usersObj, action) {
                 ...state,
               editMode: action.payload
             };
+
+        case userTypes.LOGOUT:
+            console.log("LOGOUT", action.payload);
+            localStorage.removeItem("user");
+            return {
+                ...state,
+            };
+            case userTypes.FILTER_USERS:
+            console.log("FILTER", action.payload);
+            return {
+                ...state,
+                filteredUsers: action.payload
+            };
+            case userTypes.SORT_USERS:
+            console.log("SORT", action.payload);
+            return {
+                ...state,
+                filteredUsers: action.payload
+            };
+
+
         default:
             return state;
     }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -30,6 +31,13 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    @Column(name = "token")
-    private String token;
+    @OneToMany(targetEntity = Token.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "uid_tk", referencedColumnName = "uid")
+    private List<Token> token;
+
+
+////     Each User gets a list of exams he/she has enrolled to.
+//    @OneToMany(targetEntity = UserExams.class, mappedBy = "user", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+//    @ElementCollection(targetClass = UserExams.class)
+//    private List<UserExams> userExams;
 }

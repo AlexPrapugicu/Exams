@@ -1,11 +1,14 @@
-import Login from "../components/Login";
+import Login from "../../components/Login";
 import React from "react";
-import {ContainerWrapper} from "../components/Auth.styled";
+import {ContainerWrapper} from "../../components/Auth.styled";
 import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {loginUser} from "../actions/userActions";
+import {loginUser} from "../../actions/userActions";
+import {timeout} from "../../shared/util";
 
 export default function LoginContainer() {
+
+
 
 
     const history = useHistory();
@@ -13,12 +16,14 @@ export default function LoginContainer() {
 
     let editedUser = useSelector(state => state.users.editedUser);
 
-    function handleSubmit(event) {
+    async function handleSubmit (event) {
         event.preventDefault();
 
         if (editedUser.userName && editedUser.password) {
             dispatch(loginUser(editedUser.userName, editedUser.password));
             history.push("/home");
+            await timeout(1000);
+            history.go(0);
         }
     }
 

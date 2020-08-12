@@ -10,7 +10,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateUser} from "../../actions/userActions";
 
-function UserDetailEdit({username, user, editMode, stopEdit, deleteUser}) {
+function UserDetailEdit({username, user, stopEdit, deleteUser}) {
     const dispatch = useDispatch();
 
     let editedUser = useSelector(state => state.users.editedUser);
@@ -38,7 +38,7 @@ function UserDetailEdit({username, user, editMode, stopEdit, deleteUser}) {
                               src="https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=681&q=80"
                               alt=""/>
                 <UserInfoSection>
-                    <UserText>{username}</UserText>
+                    <UserText>{username.toUpperCase()}</UserText>
                     <UserText>City Country</UserText>
                 </UserInfoSection>
             </DetailImageSection>
@@ -73,7 +73,7 @@ function UserDetailEdit({username, user, editMode, stopEdit, deleteUser}) {
                             </InputWrapper>
                             <InputWrapper>
                                 <UserText>Password</UserText>
-                                <FancyInput type="text"
+                                <FancyInput type="password"
                                             defaultValue={user.password}
                                             name="password"
                                             style={{textAlign: "center"}}

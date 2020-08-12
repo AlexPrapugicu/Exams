@@ -16,4 +16,8 @@ export const examsTypes = {
 
     EDIT_EXAM: "EDIT_EXAM",
     EDIT_EXAM_FAILURE: "EDIT_EXAM_FAILURE",
+
+    FILTER_EXAMS: "FILTER_EXAMS",
+
+    SORT_EXAMS : "SORT EXAMS",
 };

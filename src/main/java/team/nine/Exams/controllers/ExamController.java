@@ -14,35 +14,57 @@ import java.util.List;
 public class ExamController {
 
     @Autowired
-    private ExamRepository repository;
+    private ExamRepository examRepository;
+
+//    @Autowired
+//    private ExamService examService;
+//
+//    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+//
+//
+//    @GetMapping("/exams/special/{name}")
+//    public List<UserExams> getAllSpecial(@PathVariable("name") String name){
+//        return examService.getExamsForUser(name);
+//    }
+//
+//    @PostMapping("exams/special/add/{name}")
+//    public void addUserExam(@PathVariable("name") String name, @RequestBody String exam){
+//        try{
+//            logger.info("Posting {} and {}",name,exam);
+//            examService.assignExamToStudent(name,exam);
+//        }
+//        catch (Exception e){
+//            logger.info("error {}",e);
+//        }
+//    }
 
     //findAll method
     @GetMapping("/exams")
     public List<Exam> getAll(){
-        return repository.findAll();
+        return examRepository.findAll();
     }
 
     //new exam method
     @PostMapping("/exams")
     public Exam newExam(@RequestBody Exam newExam){
-        return repository.save(newExam);
+        return examRepository.save(newExam);
     }
 
     // test filter and exception using the id of an exam
     @GetMapping("/exams/{id}")
     Exam one(@PathVariable Long id) {
 
-        return repository.findById(id)
+        return examRepository.findById(id)
                 .orElseThrow(() -> new ExamNotFound(id));
     }
 
     @GetMapping("/exams/year/{yearOfStudy}")
     List<Exam> findStudyYear(@PathVariable int yearOfStudy){
-        return repository.findByYearOfStudy(yearOfStudy);
+        return examRepository.findByYearOfStudy(yearOfStudy);
     }
     @GetMapping("exams/faculty/{faculty}")
     List<Exam> findFaculty(@PathVariable String faculty){
-        return repository.findByFaculty(faculty);
+        return examRepository.findByFaculty(faculty);
     }
 
 
@@ -53,7 +75,7 @@ public class ExamController {
     @PutMapping("/exams/{id}")
     public Exam replaceExam(@RequestBody Exam newExam, @PathVariable Long id) {
 
-        return repository.findById(id)
+        return examRepository.findById(id)
                 .map(exam -> {
                     exam.setSession(newExam.getSession());
                     exam.setYearOfStudy(newExam.getYearOfStudy());
@@ -61,17 +83,16 @@ public class ExamController {
                     exam.setDomain(newExam.getDomain());
                     exam.setCourse(newExam.getCourse());
                     exam.setTeacher(newExam.getTeacher());
-
-                    return repository.save(exam);
+                    return examRepository.save(exam);
                 })
                 .orElseGet(() -> {
                     newExam.setId(id);
-                    return repository.save(newExam);
+                    return examRepository.save(newExam);
                 });
     }
     //removing an exam by id
     @DeleteMapping("/exams/{id}")
     public void deleteExam(@PathVariable Long id) {
-        repository.deleteById(id);
+        examRepository.deleteById(id);
     }
 }

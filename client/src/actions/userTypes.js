@@ -25,6 +25,8 @@ export const userTypes = {
 
     FILTER_USERS: "FILTER_USERS",
 
+    SORT_USERS: "SORT_USERS",
+
     EDITING_ON: "EDITING_ON",
     EDITING_OFF: "EDITING_OFF",
 };

@@ -9,9 +9,8 @@ import {
     InputWrapper,
     Wrapper
 } from "./Auth.styled";
-import {Link} from "react-router-dom";
 
-function Register({handleSubmit, handleChange, user}) {
+function Register({handleSubmit, handleChange}) {
     return (
         <Wrapper REGISTER>
             <InnerWrapper>
@@ -28,7 +27,7 @@ function Register({handleSubmit, handleChange, user}) {
                     </InputWrapper>
                     <InputWrapper>
                         <AuthText>Password</AuthText>
-                        <FancyInput type="text"
+                        <FancyInput type="password"
                                     placeholder="Password"
                                     name="password"
                                     style={{textAlign: "center"}}

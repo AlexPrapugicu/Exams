@@ -7,8 +7,9 @@ export const ImgThumbnail = styled.img`
   max-width: 100px;
   max-height: 160px;
   border-radius: ${props => props.detail ? "45%": "35%"};
-  border-bottom: ${props => props.detail ? "5px solid rgba(255,255,255,0.4)" : "2px solid rgba(255,255,255,0.6)"};
-  border-left: ${props => props.detail ? "5px solid rgba(255,255,255,0.4)" : "2px solid rgba(255,255,255,0.6)"};
+  border-bottom: ${props => props.detail ? "5px solid rgba(255,255,255,0.8)" : "2px solid rgba(255,255,255,0.6)"};
+  border-left: ${props => props.detail ? "5px solid rgba(255,255,255,0.8)" : "2px solid rgba(255,255,255,0.6)"};
+  border-right: ${props => props.detail ? "2px solid rgba(255,255,255,0.6)" : "1px solid rgba(255,255,255,0.4)"};
 `;
 
 export const UserText = styled.h1`
