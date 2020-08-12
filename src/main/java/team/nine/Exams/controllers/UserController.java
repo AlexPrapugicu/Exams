@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import team.nine.Exams.exceptions.EmailAlreadyTakenException;
+import team.nine.Exams.exceptions.UserTokenNotFoundException;
 import team.nine.Exams.exceptions.UsernameAlreadyTakenException;
 import team.nine.Exams.models.User;
 import team.nine.Exams.models.auth.AuthRequest;
@@ -91,7 +92,7 @@ public class UserController {
 
 
     @PostMapping("/users/authenticate")
-    public Optional<User> authenticateUser(@RequestBody AuthRequest authRequest) throws Exception{
+    public User authenticateUser(@RequestBody AuthRequest authRequest) throws Exception{
         logger.info("Auth request initialized");
 
         try{
@@ -130,6 +131,31 @@ public class UserController {
                     newUser.setUid(id);
                     return userRepository.save(newUser);
                 });
+    }
+
+    @DeleteMapping("/users/logout")
+    public User logoutUser(@RequestHeader(value = "Authorization") String token){
+        logger.info("Logout User");
+        String t = token.substring(7);
+
+        User user = userService.findByToken(t);
+
+        try{
+            userService.deleteUserToken(t);
+            logger.info("Token deleted successfully");
+        }
+        catch (UserTokenNotFoundException e){
+            logger.error(String.format("Token %s not found", t));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Token not found", e);
+        }
+        return new User(
+                user.getUid(),
+                user.getUserName(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getRole(),
+                null
+        );
     }
 
     @DeleteMapping("/users/{id}")
