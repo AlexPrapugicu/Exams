@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchExams, sort} from "../../actions/examActions";
+import {fetchExams} from "../../actions/examActions";
 import ExamCard from "../../components/exams/ExamCard";
 import Spinner from "../../shared/Spinner";
 import {
     ExamContainerWrapper,
     ExamsWrapper,
-    FancyFilterWrapper, FancyLabel, FancySelect,
     FancySelectWrapper,
     SearchBarWrapper,
     Wrapper

@@ -7,10 +7,6 @@ import {loginUser} from "../../actions/userActions";
 import {timeout} from "../../shared/util";
 
 export default function LoginContainer() {
-
-
-
-
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -21,6 +17,7 @@ export default function LoginContainer() {
 
         if (editedUser.userName && editedUser.password) {
             dispatch(loginUser(editedUser.userName, editedUser.password));
+            await timeout(200);
             history.push("/home");
             await timeout(1000);
             history.go(0);
